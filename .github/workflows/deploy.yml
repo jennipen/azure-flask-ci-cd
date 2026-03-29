@@ -31,6 +31,14 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Debug secrets presence
+        run: |
+          if [ -z "${{ secrets.AZURE_CREDENTIALS }}" ]; then
+            echo "AZURE_CREDENTIALS IS EMPTY"
+          else
+            echo "AZURE_CREDENTIALS EXISTS (length hidden)"
+          fi
+
       - name: Deploy
         uses: azure/webapps-deploy@v3
         with:
